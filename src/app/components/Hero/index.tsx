@@ -1,19 +1,14 @@
-import {
-  createStyles,
-  Title,
-  Text,
-  Button,
-  Container,
-  rem,
-  Card,
-} from "@mantine/core";
+import { createStyles, Title, Text, Container, rem, Card } from "@mantine/core";
 import { Dots } from "./Dots";
+import { AADFKeys } from "@/types/AADF";
+import { SelectFilter } from "./SelectFilter";
+import { SearchFilter } from "./SearchFilter";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
     position: "relative",
-    paddingTop: rem(120),
-    paddingBottom: rem(80),
+    paddingTop: rem(80),
+    paddingBottom: rem(20),
 
     [theme.fn.smallerThan("sm")]: {
       paddingTop: rem(80),
@@ -72,7 +67,7 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  controls: {
+  form: {
     marginTop: theme.spacing.lg,
     display: "flex",
     justifyContent: "center",
@@ -82,24 +77,18 @@ const useStyles = createStyles((theme) => ({
     },
   },
 
-  control: {
-    "&:not(:first-of-type)": {
-      marginLeft: theme.spacing.md,
-    },
-
-    [theme.fn.smallerThan("xs")]: {
-      height: rem(42),
-      fontSize: theme.fontSizes.md,
-
-      "&:not(:first-of-type)": {
-        marginTop: theme.spacing.md,
-        marginLeft: 0,
-      },
-    },
+  formItem: {
+    flex: 1,
+    maxWidth: 300,
+    margin: theme.spacing.xs,
   },
 }));
 
-export function PageHero() {
+interface Props {
+  totalRecords: number;
+}
+
+export function PageHero({ totalRecords }: Props) {
   const { classes } = useStyles();
 
   return (
@@ -112,33 +101,37 @@ export function PageHero() {
 
         <div className={classes.inner}>
           <Title className={classes.title}>
-            Automated AI{" "}
+            Emily McNabbs{" "}
             <Text component="span" className={classes.highlight} inherit>
-              code reviews
+              City Science
             </Text>{" "}
-            for any stack
+            Technical Demo
           </Title>
 
           <Container p={0} size={600}>
             <Text size="lg" color="dimmed" className={classes.description}>
-              Build more reliable software with AI companion. AI is also trained
-              to detect lazy developers who do nothing and just complain on
-              Twitter.
+              Please explore the site to view the provided AADF data in serveral
+              different ways. I have included a few different visualizations and
+              a few different ways to interact with the data.
             </Text>
           </Container>
 
-          <div className={classes.controls}>
-            <Button
-              className={classes.control}
-              size="lg"
-              variant="default"
-              color="gray"
-            >
-              Book a demo
-            </Button>
-            <Button className={classes.control} size="lg">
-              Purchase a license
-            </Button>
+          <div className={classes.form}>
+            <div className={classes.formItem}>
+              <SearchFilter />
+            </div>
+            <div className={classes.formItem}>
+              <SelectFilter attribute={AADFKeys.YEAR} />
+            </div>
+            <div className={classes.formItem}>
+              <SelectFilter attribute={AADFKeys.REGION_NAME} />
+            </div>
+            <div className={classes.formItem}>
+              <SelectFilter attribute={AADFKeys.LOCAL_AUTHORITY_NAME} />
+            </div>
+            <div className={classes.formItem}>
+              <SelectFilter attribute={AADFKeys.ROAD_TYPE} />
+            </div>
           </div>
         </div>
       </Container>

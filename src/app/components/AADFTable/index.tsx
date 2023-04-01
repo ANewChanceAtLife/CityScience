@@ -1,9 +1,23 @@
 import { useState } from "react";
-import { createStyles, Table, ScrollArea, rem, Card } from "@mantine/core";
-import { camelToTitle } from "@/app/utils/camel-to-title";
-import { AADF, AADFKeys } from "@/types/AADF";
+import {
+  createStyles,
+  Table,
+  ScrollArea,
+  rem,
+  Card,
+  Pagination,
+  Text,
+} from "@mantine/core";
+import { snakeToTitle } from "@/app/utils/string-conversion";
+import { AADFKeys } from "@/types/AADF";
+import { useHits, usePagination } from "react-instantsearch-hooks-web";
 
 const useStyles = createStyles((theme) => ({
+  rightAlign: {
+    textAlign: "right",
+    padding: theme.spacing.sm,
+  },
+
   header: {
     position: "sticky",
     top: 0,
@@ -28,12 +42,21 @@ const useStyles = createStyles((theme) => ({
   scrolled: {
     boxShadow: theme.shadows.sm,
   },
+
+  pagination: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: theme.spacing.xl,
+  },
 }));
 
 const tableColumns = [
   AADFKeys.COUNT_POINT_ID,
   AADFKeys.YEAR,
   AADFKeys.REGION_NAME,
+  AADFKeys.LOCAL_AUTHORITY_NAME,
   AADFKeys.ROAD_NAME,
   AADFKeys.ROAD_TYPE,
   AADFKeys.LATITUDE,
@@ -45,24 +68,29 @@ const tableColumns = [
   AADFKeys.ALL_HGVS,
 ];
 
-interface TableScrollAreaProps {
-  data: AADF[];
-}
-
-export function AADFTable({ data }: TableScrollAreaProps) {
-  const { classes, cx } = useStyles();
-  const [scrolled, setScrolled] = useState(false);
-
-  const rows = data.map((row) => (
-    <tr key={row.countPointId}>
+function AADFRow({ hit }: any) {
+  return (
+    <tr>
       {tableColumns.map((column) => (
-        <td key={column}>{row[column]}</td>
+        <td key={column}>{hit[column]}</td>
       ))}
     </tr>
-  ));
+  );
+}
+
+export function AADFTable() {
+  const { classes, cx } = useStyles();
+  const [scrolled, setScrolled] = useState(false);
+  const { hits, results } = useHits();
+  const { nbHits, hitsPerPage } = results ?? {};
+
+  const { currentRefinement: currentPage, nbPages, refine } = usePagination();
 
   return (
     <Card>
+      <Text fz="sm" className={classes.rightAlign}>
+        Showing {hitsPerPage} of {nbHits} AADF Records
+      </Text>
       <ScrollArea
         h={600}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
@@ -73,13 +101,26 @@ export function AADFTable({ data }: TableScrollAreaProps) {
           >
             <tr>
               {tableColumns.map((column) => (
-                <th key={column}>{camelToTitle(column)}</th>
+                <th key={column}>{snakeToTitle(column)}</th>
               ))}
             </tr>
           </thead>
-          <tbody>{rows}</tbody>
+          <tbody>
+            {hits.map((hit) => (
+              <AADFRow key={hit.objectID} hit={hit} />
+            ))}
+          </tbody>
         </Table>
       </ScrollArea>
+
+      <div className={classes.pagination}>
+        <Pagination
+          total={nbPages}
+          siblings={2}
+          value={currentPage + 1}
+          onChange={(pageNum) => refine(pageNum - 1)}
+        />
+      </div>
     </Card>
   );
 }

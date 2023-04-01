@@ -7,8 +7,8 @@ import {
   rem,
 } from "@mantine/core";
 import { IconGauge, IconCarouselHorizontal } from "@tabler/icons-react";
-import { LinksGroup } from "../LinksGroup";
-import { ThemeToggle } from "../ThemeToggle";
+import { LinksGroup } from "./LinksGroup";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navigationLinks = [
   { label: "Dashboard", icon: IconGauge },
