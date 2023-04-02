@@ -12,7 +12,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconDeviceAnalytics } from "@tabler/icons-react";
-import { useHits } from "react-instantsearch-hooks-web";
+import { useHits, useRefinementList } from "react-instantsearch-hooks-web";
 
 const useStyles = createStyles((theme) => ({
   progressLabel: {
@@ -56,8 +56,16 @@ const includeFacets = [
 export function Stats() {
   const theme = useMantineTheme();
   const { classes } = useStyles();
+
+  useRefinementList({ attribute: AADFKeys.TWO_WHEELED_MOTOR_VEHICLES });
+  useRefinementList({ attribute: AADFKeys.CARS_AND_TAXIS });
+  useRefinementList({ attribute: AADFKeys.BUSES_AND_COACHES });
+  useRefinementList({ attribute: AADFKeys.LGVS });
+  useRefinementList({ attribute: AADFKeys.ALL_HGVS });
+
   const { results } = useHits();
   const stats: FacetStats = ((results as any) ?? {}).facets_stats ?? {};
+  console.log("stats", stats);
 
   const facetToColor = {
     [AADFKeys.ALL_HGVS]: theme.colors.blue[5],

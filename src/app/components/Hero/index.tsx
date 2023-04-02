@@ -88,20 +88,6 @@ const useStyles = createStyles((theme) => ({
 export function PageHero() {
   const { classes } = useStyles();
 
-  useRefinementList({ attribute: AADFKeys.PEDAL_CYCLES });
-  useRefinementList({ attribute: AADFKeys.TWO_WHEELED_MOTOR_VEHICLES });
-  useRefinementList({ attribute: AADFKeys.CARS_AND_TAXIS });
-  useRefinementList({ attribute: AADFKeys.BUSES_AND_COACHES });
-  useRefinementList({ attribute: AADFKeys.LGVS });
-  useRefinementList({ attribute: AADFKeys.HGVS_2_RIGID_AXLE });
-  useRefinementList({ attribute: AADFKeys.HGVS_3_RIGID_AXLE });
-  useRefinementList({ attribute: AADFKeys.HGVS_4_OR_MORE_RIGID_AXLE });
-  useRefinementList({ attribute: AADFKeys.HGVS_3_OR_4_ARTICULATED_AXLE });
-  useRefinementList({ attribute: AADFKeys.HGVS_5_ARTICULATED_AXLE });
-  useRefinementList({ attribute: AADFKeys.HGVS_6_ARTICULATED_AXLE });
-  useRefinementList({ attribute: AADFKeys.ALL_HGVS });
-  useRefinementList({ attribute: AADFKeys.ALL_MOTOR_VEHICLES });
-
   return (
     <Card>
       <Container className={classes.wrapper} size={1400}>

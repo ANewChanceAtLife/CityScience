@@ -37,7 +37,12 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head className={styles.header}></head>
+      <head className={styles.header}>
+        <link
+          href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css"
+          rel="stylesheet"
+        />
+      </head>
       <body className={styles.body}>
         <InstantSearch searchClient={searchClient} indexName="AADF">
           <ColorSchemeProvider

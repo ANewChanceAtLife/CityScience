@@ -12,15 +12,14 @@ import { ThemeToggle } from "./ThemeToggle";
 
 const navigationLinks = [
   { label: "Dashboard", icon: IconGauge, url: "/" },
-  { label: "Map View", icon: IconMap, url: "/map" },
-  // {
-  //   label: "Models",
-  //   icon: IconCarouselHorizontal,
-  //   links: [
-  //     { label: "Table View", link: "/" },
-  //     { label: "Map View", link: "/" },
-  //   ],
-  // },
+  {
+    label: "Maps",
+    icon: IconMap,
+    links: [
+      { label: "Heat map", link: "/heatmap" },
+      { label: "Line map", link: "/linemap" },
+    ],
+  },
 ];
 
 const useStyles = createStyles((theme) => ({
@@ -72,7 +71,7 @@ export function NestedNav() {
       <Navbar.Section className={classes.header}>
         <Group position="apart">
           City Science Demo
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
+          <Code sx={{ fontWeight: 700 }}>by Emily McNabb</Code>
         </Group>
       </Navbar.Section>
 
