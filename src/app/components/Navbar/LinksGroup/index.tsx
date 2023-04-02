@@ -9,11 +9,8 @@ import {
   createStyles,
   rem,
 } from "@mantine/core";
-import {
-  IconCalendarStats,
-  IconChevronLeft,
-  IconChevronRight,
-} from "@tabler/icons-react";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
+import { redirect, useRouter } from "next/navigation";
 
 const useStyles = createStyles((theme) => ({
   control: {
@@ -66,6 +63,7 @@ const useStyles = createStyles((theme) => ({
 interface LinksGroupProps {
   icon: React.FC<any>;
   label: string;
+  url?: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
 }
@@ -73,9 +71,11 @@ interface LinksGroupProps {
 export function LinksGroup({
   icon: Icon,
   label,
+  url,
   initiallyOpened,
   links,
 }: LinksGroupProps) {
+  const { push } = useRouter();
   const { classes, theme } = useStyles();
   const hasLinks = Array.isArray(links);
   const [opened, setOpened] = useState(initiallyOpened || false);
@@ -92,6 +92,13 @@ export function LinksGroup({
     </Text>
   ));
 
+  const handleLinkClick = (url?: string) => {
+    console.log("CLICK", url);
+    if (url) {
+      push(url);
+    }
+  };
+
   return (
     <>
       <UnstyledButton
@@ -99,7 +106,10 @@ export function LinksGroup({
         className={classes.control}
       >
         <Group position="apart" spacing={0}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center" }}
+            onClick={() => handleLinkClick(url)}
+          >
             <ThemeIcon variant="light" size={30}>
               <Icon size="1.1rem" />
             </ThemeIcon>
@@ -121,30 +131,5 @@ export function LinksGroup({
       </UnstyledButton>
       {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
-  );
-}
-
-const mockdata = {
-  label: "Releases",
-  icon: IconCalendarStats,
-  links: [
-    { label: "Upcoming releases", link: "/" },
-    { label: "Previous releases", link: "/" },
-    { label: "Releases schedule", link: "/" },
-  ],
-};
-
-export function NavbarLinksGroup() {
-  return (
-    <Box
-      sx={(theme) => ({
-        minHeight: rem(220),
-        padding: theme.spacing.md,
-        backgroundColor:
-          theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.white,
-      })}
-    >
-      <LinksGroup {...mockdata} />
-    </Box>
   );
 }

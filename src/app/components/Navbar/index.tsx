@@ -6,20 +6,21 @@ import {
   createStyles,
   rem,
 } from "@mantine/core";
-import { IconGauge, IconCarouselHorizontal } from "@tabler/icons-react";
+import { IconGauge, IconMap } from "@tabler/icons-react";
 import { LinksGroup } from "./LinksGroup";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navigationLinks = [
-  { label: "Dashboard", icon: IconGauge },
-  {
-    label: "Models",
-    icon: IconCarouselHorizontal,
-    links: [
-      { label: "Table View", link: "/" },
-      { label: "Map View", link: "/" },
-    ],
-  },
+  { label: "Dashboard", icon: IconGauge, url: "/" },
+  { label: "Map View", icon: IconMap, url: "/map" },
+  // {
+  //   label: "Models",
+  //   icon: IconCarouselHorizontal,
+  //   links: [
+  //     { label: "Table View", link: "/" },
+  //     { label: "Map View", link: "/" },
+  //   ],
+  // },
 ];
 
 const useStyles = createStyles((theme) => ({

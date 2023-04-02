@@ -3,6 +3,7 @@
 import { AADFTable } from "./components/AADFTable";
 import { PageHero } from "./components/Hero";
 import { Card, Loader } from "@mantine/core";
+import { Stats } from "./components/Stats";
 
 export default function Dashboard() {
   const loading: boolean = false;
@@ -17,8 +18,9 @@ export default function Dashboard() {
 
   return (
     <main>
-      <PageHero totalRecords={0} />
-      <AADFTable data={[]} />
+      <PageHero />
+      <Stats />
+      <AADFTable />
     </main>
   );
 }

@@ -7,10 +7,15 @@ import {
   Card,
   Pagination,
   Text,
+  Select,
 } from "@mantine/core";
 import { snakeToTitle } from "@/app/utils/string-conversion";
 import { AADFKeys } from "@/types/AADF";
-import { useHits, usePagination } from "react-instantsearch-hooks-web";
+import {
+  Configure,
+  useHits,
+  usePagination,
+} from "react-instantsearch-hooks-web";
 
 const useStyles = createStyles((theme) => ({
   rightAlign: {
@@ -46,7 +51,7 @@ const useStyles = createStyles((theme) => ({
   pagination: {
     width: "100%",
     display: "flex",
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center",
     marginTop: theme.spacing.xl,
   },
@@ -81,10 +86,11 @@ function AADFRow({ hit }: any) {
 export function AADFTable() {
   const { classes, cx } = useStyles();
   const [scrolled, setScrolled] = useState(false);
+  const [pageSize, setPageSize] = useState("25");
   const { hits, results } = useHits();
   const { nbHits, hitsPerPage } = results ?? {};
 
-  const { currentRefinement: currentPage, nbPages, refine } = usePagination();
+  const { currentRefinement: currentPage, nbPages, refine } = usePagination({});
 
   return (
     <Card>
@@ -120,7 +126,15 @@ export function AADFTable() {
           value={currentPage + 1}
           onChange={(pageNum) => refine(pageNum - 1)}
         />
+        <Select
+          data={["10", "25", "50", "100"]}
+          value={pageSize}
+          onChange={(value) => setPageSize(value ?? "25")}
+          size="sm"
+        />
       </div>
+
+      <Configure hitsPerPage={+pageSize} />
     </Card>
   );
 }

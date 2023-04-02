@@ -74,3 +74,12 @@ export interface AADF {
   twoWheeledMotorVehicles: number;
   year: number;
 }
+
+export interface Stats {
+  avg: number;
+  min: number;
+  max: number;
+  sum: number;
+}
+
+export type FacetStats = Record<AADFKeys, Stats>;
