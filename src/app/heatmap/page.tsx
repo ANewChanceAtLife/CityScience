@@ -30,7 +30,7 @@ interface Waypoint {
 }
 
 export default function MapPage() {
-  const dataPoints = "http://localhost:3000/waypoints.json";
+  const dataPoints = "https://filebin.net/89r5yy6u8x3phm3k/waypoints.json";
   const initialViewState = INITIAL_VIEW_STATE;
   const mapStyle = MAP_STYLE;
 

@@ -10,7 +10,7 @@ import { blend_colors } from "../utils/colors";
 import { random } from "lodash";
 
 // Source data CSV
-const TRIPS = "http://localhost:3000/trips.json";
+const TRIPS = "https://filebin.net/89r5yy6u8x3phm3k/trips.json";
 
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
