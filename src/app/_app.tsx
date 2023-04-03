@@ -12,7 +12,7 @@ export default function App(props: AppProps) {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <link rel="shortcut icon" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.png" />
         <link
           href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css"
           rel="stylesheet"

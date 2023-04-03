@@ -65,7 +65,6 @@ export function Stats() {
 
   const { results } = useHits();
   const stats: FacetStats = ((results as any) ?? {}).facets_stats ?? {};
-  console.log("stats", stats);
 
   const facetToColor = {
     [AADFKeys.ALL_HGVS]: theme.colors.blue[5],

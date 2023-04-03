@@ -17,30 +17,28 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
+const DATA_POINTS = "http://localhost:3000/api/trips";
+
 const MAP_STYLE =
   "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
 
-interface Waypoint {
-  Latitude: string;
-  Longitude: string;
-  All_motor_vehicles: string;
-  Direction_of_travel: string;
-  Road_name: string;
-  Road_type: string;
+interface Trip {
+  Coordinates: number[][];
+  Avg_Traffic: number;
+  id: string;
 }
 
 export default function MapPage() {
-  const dataPoints = "https://filebin.net/89r5yy6u8x3phm3k/waypoints.json";
   const initialViewState = INITIAL_VIEW_STATE;
   const mapStyle = MAP_STYLE;
 
   const layers = [
     new HeatmapLayer({
-      data: dataPoints,
+      data: DATA_POINTS,
       id: "heatmp-layer",
       pickable: false,
-      getPosition: (d: Waypoint) => [+d.Longitude, +d.Latitude],
-      getWeight: (d: Waypoint) => +d.All_motor_vehicles,
+      getPosition: (d: Trip) => d.Coordinates[0],
+      getWeight: (d: Trip) => +d.Avg_Traffic,
       radiusPixels: 30,
       intensity: 1,
       threshold: 0.03,

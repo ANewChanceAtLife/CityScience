@@ -1,9 +1,7 @@
 "use client";
 import { NestedNav } from "./components/Navbar";
 import "./globals.css";
-import { Inter } from "next/font/google";
 import styles from "./layout.module.css";
-import cx from "classnames";
 import { useLocalStorage } from "@mantine/hooks";
 import {
   ColorScheme,
@@ -18,8 +16,6 @@ const searchClient = algoliasearch(
   "D4BICDSYQT",
   "e99f082bce641f704ee4e49c78348733"
 );
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -42,6 +38,8 @@ export default function RootLayout({
           href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css"
           rel="stylesheet"
         />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <title>City Science Demo</title>
       </head>
       <body className={styles.body}>
         <InstantSearch searchClient={searchClient} indexName="AADF">

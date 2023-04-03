@@ -94,7 +94,6 @@ export function LinksGroup({
   ));
 
   const handleLinkClick = (url?: string) => {
-    console.log("CLICK", url);
     if (url) {
       push(url);
     }
