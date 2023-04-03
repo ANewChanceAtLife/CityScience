@@ -17,8 +17,6 @@ const INITIAL_VIEW_STATE = {
   bearing: 0,
 };
 
-const DATA_POINTS = "http://localhost:3000/api/trips";
-
 const MAP_STYLE =
   "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json";
 
@@ -34,7 +32,7 @@ export default function MapPage() {
 
   const layers = [
     new HeatmapLayer({
-      data: DATA_POINTS,
+      data: `${process.env.NEXT_PUBLIC_API_URL}/trips`,
       id: "heatmp-layer",
       pickable: false,
       getPosition: (d: Trip) => d.Coordinates[0],

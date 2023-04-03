@@ -9,9 +9,6 @@ import { TripsLayer } from "@deck.gl/geo-layers";
 import { blend_colors } from "../utils/colors";
 import { random } from "lodash";
 
-// Source data CSV
-const TRIPS = "http://localhost:3000/api/trips";
-
 const ambientLight = new AmbientLight({
   color: [255, 255, 255],
   intensity: 1.0,
@@ -79,7 +76,7 @@ export default function Linemap() {
   const layers = [
     new TripsLayer({
       id: "trips",
-      data: TRIPS,
+      data: `${process.env.NEXT_PUBLIC_API_URL}/trips`,
       getPath: (d: any) => d.Coordinates,
       getTimestamps: (d: any) => {
         const min = random(0, 2000);
